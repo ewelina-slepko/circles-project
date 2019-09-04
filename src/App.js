@@ -1,39 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import * as d3 from 'd3';
+import Circle from './components/Circle.jsx'
 
 function App() {
+  const [counterX, setCounterX] = useState(0);
+  const [counterY, setCounterY] = useState(0);
+  const [amountOfCircles, setAmountOfCircles] = useState([]);
+  const addingCircle = () => {
+    setCounterX(counterX < 5 ? counterX + 1 : 0)
+    setCounterY(counterX === 0 ? counterY + 1 : counterY)
+    setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
+    console.log(counterY)
+  }
+
   return (
     <div className="App">
       <h1>d3 - trial</h1>
-      <Circle id="Circle" data={['data']} />
+      <button onClick={addingCircle}>Add circle</button>
+      <button>Remove circle</button>
+      <Circle id="Circle" amountOfCircles={amountOfCircles} counterY={counterY} />
     </div>
   );
-}
-
-
-function Circle({ id, data, circleX = 100, circleY = 100, radius = 60 }) {
-  useEffect(() => {
-    const svg = d3
-      .select('#' + id)
-      .append('svg')
-      .attr('width', 900)
-      .attr('height', 900)
-
-    svg
-      .selectAll('circle')
-      .data(data)
-      .enter()
-      .append('circle')
-
-      .attr("cx", circleX)
-      .attr("cy", circleY)
-      .attr("r", radius)
-      .attr('fill', '#6096BA')
-      .attr('stroke', '#1C5897')
-  }, []);
-
-  return <div id={id} />;
 }
 
 export default App;
