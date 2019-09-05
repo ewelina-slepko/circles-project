@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 const Circle = ({ id }) => {
     const [counterX, setCounterX] = useState(1);
-    const [counterY, setCounterY] = useState(1);
+    const [counterY, setCounterY] = useState(0);
     const [amountOfCircles, setAmountOfCircles] = useState([]);
 
     const circleX = (d, i) => 100 + (d * 140);
@@ -36,14 +36,23 @@ const Circle = ({ id }) => {
     });
 
     const addingCircle = () => {
-        setCounterX(counterX < 5 ? counterX + 1 : 1)
+        setCounterX(counterX < 4 ? counterX + 1 : 1)
         setCounterY(counterX === 1 ? counterY + 1 : counterY)
         setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
+        console.log(counterX)
+        console.log(counterY)
+        console.log(amountOfCircles)
     }
 
     const removingCircle = () => {
         d3.selectAll("circle:last-of-type").remove()
         d3.selectAll("text:last-of-type").remove()
+        setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
+        setCounterX(counterX > 1 ? counterX - 1 : 4)
+        setCounterY(counterX === 2 ? counterY - 1 : counterY)
+        console.log(counterX)
+        console.log(counterY)
+        console.log(amountOfCircles)
     }
 
     return (
