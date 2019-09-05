@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Button from './Button.jsx'
 import * as d3 from 'd3';
 
 const Circle = ({ id }) => {
@@ -66,8 +67,8 @@ const Circle = ({ id }) => {
     return (
         <>
             <section>
-                <button onClick={addingCircle}>Add circle</button>
-                <button onClick={removingCircle}>Remove circle</button>
+                <Button onClick={addingCircle}>Add circle</Button>
+                <Button onClick={removingCircle}>Remove circle</Button>
             </section>
 
             <svg id={id} width="900" height="900"></svg>
