@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
-const Circle = ({ id,
-    amountOfCircles,
-    counterY,
-    radius = 60,
-    circleX = (d, i) => 100 + (d * 140),
-    circleY = (d, i) => counterY > 0 ? counterY * 140 : 100 }) => {
+const Circle = ({ id }) => {
+    const [counterX, setCounterX] = useState(1);
+    const [counterY, setCounterY] = useState(1);
+    const [amountOfCircles, setAmountOfCircles] = useState([]);
+
+    const circleX = (d, i) => 100 + (d * 140);
+    const circleY = (d, i) => counterY > 0 ? counterY * 140 : 100;
+    const radius = 60;
 
     useEffect(() => {
         const svg = d3
@@ -33,14 +35,21 @@ const Circle = ({ id,
             .text("Lorem Ipsum")
     });
 
-    const remove = () => {
+    const addingCircle = () => {
+        setCounterX(counterX < 5 ? counterX + 1 : 1)
+        setCounterY(counterX === 1 ? counterY + 1 : counterY)
+        setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
+    }
+
+    const removingCircle = () => {
         d3.selectAll("circle:last-of-type").remove()
         d3.selectAll("text:last-of-type").remove()
     }
 
     return (
         <>
-            <button onClick={remove}>Remove circle</button>
+            <button onClick={addingCircle}>Add circle</button>
+            <button onClick={removingCircle}>Remove circle</button>
             <div />
             <svg id={id} width="900" height="900"></svg>
         </>
