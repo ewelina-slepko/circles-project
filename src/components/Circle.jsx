@@ -8,8 +8,8 @@ const Circle = ({ id }) => {
     const [amountOfCircles, setAmountOfCircles] = useState([]);
 
     const circleX = (d, i) => 100 + (d * 140);
-    const circleY = (d, i) => counterY > 0 ? counterY * 140 : 100;
-    const radius = 60;
+    const circleY = (d, i) => counterY > 0 ? counterY * 120 : 100;
+    const radius = 38;
 
     function getRandomColor() {
         const stringToRandomColor = '0123456789ABCDEF';
@@ -42,6 +42,8 @@ const Circle = ({ id }) => {
             .style("text-anchor", "middle")
             .attr("x", circleX)
             .attr("y", circleY)
+            .attr("fill", "#333333")
+            .style("font-size", "10px")
             .text("Lorem Ipsum")
     });
 
@@ -49,6 +51,19 @@ const Circle = ({ id }) => {
         setCounterX(counterX < 4 ? counterX + 1 : 1)
         setCounterY(counterX === 1 ? counterY + 1 : counterY)
         setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
+
+        d3.selectAll("circle")
+            .transition()
+            .duration(1000)
+            .attr("transform", "translate(0, 30)")
+
+        d3.selectAll("text")
+            .transition()
+            .ease("quad-out")
+            .duration(1600)
+            .delay(0)
+            .attr("transform", "translate(0, 30)")
+            .transition()
     }
 
     const removingCircle = () => {

@@ -5,7 +5,7 @@ import Circle from './components/Circle.jsx'
 function App() {
   return (
     <div className="App">
-      <h1>Circles box</h1>
+      <h1 style={{ textTransform: "uppercase" }}>Circles box</h1>
       <Circle id="Canvas" />
     </div>
   );
