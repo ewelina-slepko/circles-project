@@ -10,6 +10,15 @@ const Circle = ({ id }) => {
     const circleY = (d, i) => counterY > 0 ? counterY * 140 : 100;
     const radius = 60;
 
+    function getRandomColor() {
+        const stringToRandomColor = '0123456789ABCDEF';
+        var color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += stringToRandomColor[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     useEffect(() => {
         const svg = d3
             .select('#' + id)
@@ -22,7 +31,7 @@ const Circle = ({ id }) => {
             .attr("cy", circleY)
             .attr("r", radius)
             .attr("fill-opacity", 0.6)
-            .attr('fill', '#6096BA')
+            .attr('fill', getRandomColor())
 
         svg
             .selectAll('text')
@@ -39,30 +48,19 @@ const Circle = ({ id }) => {
         setCounterX(counterX < 4 ? counterX + 1 : 1)
         setCounterY(counterX === 1 ? counterY + 1 : counterY)
         setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
-        console.log(counterX)
-        console.log(counterY)
-        console.log(amountOfCircles)
     }
 
     const removingCircle = () => {
+
         if (counterY >= 1) {
             d3.selectAll("circle:last-of-type").remove()
             d3.selectAll("text:last-of-type").remove()
             setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
             setCounterX(counterX > 1 ? counterX - 1 : 4)
             setCounterY(counterX === 2 ? counterY - 1 : counterY)
-            console.log(counterX)
-            console.log(counterY)
-            console.log(amountOfCircles)
         } else {
             return null
         }
-
-
-
-
-
-
     }
 
     return (

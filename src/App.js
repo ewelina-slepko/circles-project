@@ -3,12 +3,9 @@ import './App.css';
 import Circle from './components/Circle.jsx'
 
 function App() {
-
-
-
   return (
     <div className="App">
-      <h1>d3 - trial</h1>
+      <h1>Circles box</h1>
       <Circle id="Canvas" />
     </div>
   );
