@@ -45,21 +45,33 @@ const Circle = ({ id }) => {
     }
 
     const removingCircle = () => {
-        d3.selectAll("circle:last-of-type").remove()
-        d3.selectAll("text:last-of-type").remove()
-        setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
-        setCounterX(counterX > 1 ? counterX - 1 : 4)
-        setCounterY(counterX === 2 ? counterY - 1 : counterY)
-        console.log(counterX)
-        console.log(counterY)
-        console.log(amountOfCircles)
+        if (counterY >= 1) {
+            d3.selectAll("circle:last-of-type").remove()
+            d3.selectAll("text:last-of-type").remove()
+            setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
+            setCounterX(counterX > 1 ? counterX - 1 : 4)
+            setCounterY(counterX === 2 ? counterY - 1 : counterY)
+            console.log(counterX)
+            console.log(counterY)
+            console.log(amountOfCircles)
+        } else {
+            return null
+        }
+
+
+
+
+
+
     }
 
     return (
         <>
-            <button onClick={addingCircle}>Add circle</button>
-            <button onClick={removingCircle}>Remove circle</button>
-            <div />
+            <section>
+                <button onClick={addingCircle}>Add circle</button>
+                <button onClick={removingCircle}>Remove circle</button>
+            </section>
+
             <svg id={id} width="900" height="900"></svg>
         </>
     )

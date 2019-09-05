@@ -9,7 +9,6 @@ function App() {
   return (
     <div className="App">
       <h1>d3 - trial</h1>
-
       <Circle id="Canvas" />
     </div>
   );
