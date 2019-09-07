@@ -1,5 +1,5 @@
 # Climb It App
-![screenshot](src/components/images/screen_shoot.png)
+![screenshot](/images/screen_shoot.png)
 
 ## Table of contents
 * [General info](#general-info)
