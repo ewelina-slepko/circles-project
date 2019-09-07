@@ -3,13 +3,8 @@ import Button from './Button.jsx'
 import * as d3 from 'd3';
 
 const Circle = ({ id }) => {
-    const [counterX, setCounterX] = useState(1);
-    const [counterY, setCounterY] = useState(0);
     const [amountOfCircles, setAmountOfCircles] = useState([]);
-
-    const circleX = (d, i) => 100 + (d * 140);
-    const circleY = (d, i) => counterY > 0 ? counterY * 120 : 100;
-    const radius = 38;
+    let simulation;
 
     function getRandomColor() {
         const stringToRandomColor = '0123456789ABCDEF';
@@ -23,60 +18,69 @@ const Circle = ({ id }) => {
     useEffect(() => {
         const svg = d3
             .select('#' + id)
-        svg
-            .selectAll('circle')
-            .data(amountOfCircles)
-            .enter()
-            .append('circle')
-            .attr("cx", circleX)
-            .attr("cy", circleY)
-            .attr("r", radius)
-            .attr("fill-opacity", 0.6)
-            .attr('fill', getRandomColor())
 
-        svg
-            .selectAll('text')
-            .data(amountOfCircles)
-            .enter()
-            .append("text")
-            .style("text-anchor", "middle")
-            .attr("x", circleX)
-            .attr("y", circleY)
-            .attr("fill", "#333333")
-            .style("font-size", "10px")
-            .text("Lorem Ipsum")
+        simulation = d3.forceSimulation(amountOfCircles)
+            .force('charge', d3.forceManyBody().strength(100))
+            .force('center', d3.forceCenter(900 / 2, 600 / 2))
+            .force('collision', d3.forceCollide().radius(function (d) {
+                return d.radius
+            }))
+            .on('tick', ticked);
+
+        function ticked() {
+            console.log('tik');
+            const u = d3.select('svg')
+                .selectAll('circle')
+                .data(amountOfCircles)
+
+            u.enter()
+                .append('circle')
+                .attr('r', function (d) {
+                    return d.radius
+                })
+                .attr('fill', d => d.randomColor)
+                .merge(u)
+                .attr('cx', function (d) {
+                    return d.x
+                })
+                .attr('cy', function (d) {
+                    return d.y
+                })
+            u.exit().remove()
+
+
+            const t = d3.select('svg')
+                .selectAll('text')
+                .data(amountOfCircles)
+
+            t.enter()
+                .append('text')
+                .attr("text-anchor", "middle")
+
+                .attr('fill', d => d.randomColor)
+                .merge(t)
+                .attr('x', function (d) {
+                    return d.x
+                })
+                .attr('y', function (d) {
+                    return d.y
+                })
+                .attr("fill", "#fff")
+                .attr("font-size", "16px")
+                .text("Lorem Ipsum")
+            t.exit().remove()
+        }
     });
 
     const addingCircle = () => {
-        setCounterX(counterX < 4 ? counterX + 1 : 1)
-        setCounterY(counterX === 1 ? counterY + 1 : counterY)
-        setAmountOfCircles(amountOfCircles => [...amountOfCircles, counterX])
-
-        d3.selectAll("circle")
-            .transition()
-            .duration(1000)
-            .attr("transform", "translate(0, 30)")
-
-        d3.selectAll("text")
-            .transition()
-            .ease("quad-out")
-            .duration(1600)
-            .delay(0)
-            .attr("transform", "translate(0, 30)")
-            .transition()
+        simulation.stop()
+        setAmountOfCircles(amountOfCircles => [...amountOfCircles, { radius: 60, randomColor: getRandomColor() }])
+        console.log(amountOfCircles)
     }
 
     const removingCircle = () => {
-
-        if (counterY >= 1) {
-            d3.selectAll("circle:last-of-type").remove()
-            d3.selectAll("text:last-of-type").remove()
-            setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
-            setCounterX(counterX > 1 ? counterX - 1 : 4)
-            setCounterY(counterX === 2 ? counterY - 1 : counterY)
-        } else {
-            return null
-        }
+        setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
+        console.log(amountOfCircles)
     }
 
     return (
@@ -85,10 +89,8 @@ const Circle = ({ id }) => {
                 <Button onClick={addingCircle}>Add circle</Button>
                 <Button onClick={removingCircle}>Remove circle</Button>
             </section>
-
-            <svg id={id} width="900" height="900"></svg>
+            <svg id={id} width="900" height="600"></svg>
         </>
     )
 }
-
 export default Circle;
