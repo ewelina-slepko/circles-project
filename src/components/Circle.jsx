@@ -28,7 +28,7 @@ const Circle = ({ id }) => {
             .force('charge', d3.forceManyBody().strength(100))
             .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
             .force('collision', d3.forceCollide().radius(function (d) {
-                return d.radius + 1
+                return d.radius + 3
             }))
             .on('tick', ticked);
 
