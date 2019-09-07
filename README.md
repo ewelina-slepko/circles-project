@@ -1,4 +1,4 @@
-# Climb It App
+# Awesome Box
 ![screenshot](/images/screen_shoot.png)
 
 ## Table of contents
