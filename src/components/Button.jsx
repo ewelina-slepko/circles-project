@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 const Button = styled.button`
-  background: #2B303A;
+  background: #7c8494;
   color: #d7dade;
   border-radius: 5px;
-  border: 2px solid transparent;
+  border: unset;
   width: 140px;
   height: 40px;
   color: white;
@@ -17,7 +17,7 @@ const Button = styled.button`
         transform: translateY(1px);
     }
   &:hover{
-    background: #1f2229
+    background: #747b8a
 }
 `
 

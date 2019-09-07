@@ -3,11 +3,12 @@
     text-align: center;
     font-family: 'Amatic SC', cursive;
     font-size: 3rem;
+    font-weight: 700;
     margin: 1rem;
 }
 
 .description{
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 }
 
 

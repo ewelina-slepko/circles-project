@@ -4,17 +4,16 @@ import styles from '../styles/Circles.module.css'
 import * as d3 from 'd3'
 
 const Circle = ({ id }) => {
-    const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: 450, y: 300 }
-    const [amountOfCircles, setAmountOfCircles] = useState([]);
+
     const containerWidth = window.innerWidth - (window.innerWidth / 10)
     const containerHeight = window.innerHeight - (window.innerHeight / 5)
-
+    const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: containerWidth / 2, y: containerHeight / 2 }
+    const [amountOfCircles, setAmountOfCircles] = useState([]);
     const simulation = useRef();
 
     function getRandomSize() {
         return Math.floor(Math.random() * (60 - 30 + 1)) + 30
     }
-
     function getRandomColor() {
         const stringToRandomColor = '0123456789ABCDEF';
         var color = '#';
@@ -34,7 +33,6 @@ const Circle = ({ id }) => {
             .on('tick', ticked);
 
         function ticked() {
-            console.log('tik');
             const circle = d3.select('svg')
                 .selectAll('circle')
                 .data(amountOfCircles)
@@ -53,7 +51,6 @@ const Circle = ({ id }) => {
                     return d.y
                 })
             circle.exit().remove()
-
 
             const text = d3.select('svg')
                 .selectAll('text')
@@ -84,9 +81,7 @@ const Circle = ({ id }) => {
     const addingCircle = () => {
         simulation.current.stop()
         setAmountOfCircles(amountOfCircles => [...amountOfCircles, myCircle])
-
     }
-
     const removingCircle = () => {
         simulation.current.stop()
         setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
