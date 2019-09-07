@@ -1,0 +1,13 @@
+.header{
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Amatic SC', cursive;
+    font-size: 3rem;
+    margin: 1rem;
+}
+
+.description{
+    font-size: 1.6rem;
+}
+
+

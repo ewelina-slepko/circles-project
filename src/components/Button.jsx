@@ -5,9 +5,10 @@ const Button = styled.button`
   color: #d7dade;
   border-radius: 5px;
   border: 2px solid transparent;
-  width: 180px;
+  width: 140px;
+  height: 40px;
   color: white;
-  margin: 0 10px;
+  margin: 10px;
   padding: 10px;
   outline: none;
   text-transform: uppercase;

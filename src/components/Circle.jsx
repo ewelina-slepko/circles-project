@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from './Button.jsx'
-import * as d3 from 'd3';
+import styles from '../styles/Circles.module.css'
+import * as d3 from 'd3'
 
-const Circle = ({ id, amountOfCircles, setAmountOfCircles }) => {
+const Circle = ({ id }) => {
     const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: 450, y: 300 }
+    const [amountOfCircles, setAmountOfCircles] = useState([]);
+    const containerWidth = window.innerWidth - (window.innerWidth / 10)
+    const containerHeight = window.innerHeight - (window.innerHeight / 5)
 
     let simulation;
 
     function getRandomSize() {
-        return Math.floor(Math.random() * (100 - 30 + 1)) + 30
+        return Math.floor(Math.random() * (60 - 30 + 1)) + 30
     }
 
     function getRandomColor() {
@@ -23,7 +27,7 @@ const Circle = ({ id, amountOfCircles, setAmountOfCircles }) => {
     useEffect(() => {
         simulation = d3.forceSimulation(amountOfCircles)
             .force('charge', d3.forceManyBody().strength(100))
-            .force('center', d3.forceCenter(900 / 2, 600 / 2))
+            .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
             .force('collision', d3.forceCollide().radius(function (d) {
                 return d.radius + 1
             }))
@@ -89,13 +93,17 @@ const Circle = ({ id, amountOfCircles, setAmountOfCircles }) => {
     }
 
     return (
-        <>
-            <section style={{ margin: '20px' }}>
+        <section className={styles.container}>
+            <div className={styles.btn_wrapper}>
                 <Button onClick={addingCircle}>Add circle</Button>
                 <Button onClick={removingCircle}>Remove circle</Button>
-            </section>
-            <svg id={id} width="900" height="600"></svg>
-        </>
+            </div>
+            <svg className={styles.circle_box}
+                id={id}
+                width={containerWidth}
+                height={containerHeight}>
+            </svg>
+        </section>
     )
 }
 export default Circle;
