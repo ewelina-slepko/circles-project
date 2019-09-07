@@ -9,7 +9,7 @@ const Circle = ({ id }) => {
     const containerWidth = window.innerWidth - (window.innerWidth / 10)
     const containerHeight = window.innerHeight - (window.innerHeight / 5)
 
-    let simulation;
+    const simulation = useRef();
 
     function getRandomSize() {
         return Math.floor(Math.random() * (60 - 30 + 1)) + 30
@@ -25,7 +25,7 @@ const Circle = ({ id }) => {
     }
 
     useEffect(() => {
-        simulation = d3.forceSimulation(amountOfCircles)
+        simulation.current = d3.forceSimulation(amountOfCircles)
             .force('charge', d3.forceManyBody().strength(100))
             .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
             .force('collision', d3.forceCollide().radius(function (d) {
@@ -82,13 +82,13 @@ const Circle = ({ id }) => {
     });
 
     const addingCircle = () => {
-        simulation.stop()
+        simulation.current.stop()
         setAmountOfCircles(amountOfCircles => [...amountOfCircles, myCircle])
 
     }
 
     const removingCircle = () => {
-        simulation.stop()
+        simulation.current.stop()
         setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
     }
 
