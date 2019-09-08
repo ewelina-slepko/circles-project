@@ -8,7 +8,7 @@ const Circle = ({ id }) => {
     const containerWidth = window.innerWidth - (window.innerWidth / 10)
     const containerHeight = window.innerHeight - (window.innerHeight / 5)
     const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: containerWidth / 2, y: containerHeight / 2 }
-    const [amountOfCircles, setAmountOfCircles] = useState([]);
+    const [arrayOfCircles, setarrayOfCircles] = useState([]);
     const simulation = useRef();
 
     function getRandomSize() {
@@ -24,7 +24,7 @@ const Circle = ({ id }) => {
     }
 
     useEffect(() => {
-        simulation.current = d3.forceSimulation(amountOfCircles)
+        simulation.current = d3.forceSimulation(arrayOfCircles)
             .force('charge', d3.forceManyBody().strength(100))
             .force('center', d3.forceCenter(containerWidth / 2, containerHeight / 2))
             .force('collision', d3.forceCollide().radius(function (d) {
@@ -35,7 +35,7 @@ const Circle = ({ id }) => {
         function ticked() {
             const circle = d3.select('svg')
                 .selectAll('circle')
-                .data(amountOfCircles)
+                .data(arrayOfCircles)
 
             circle.enter()
                 .append('circle')
@@ -54,7 +54,7 @@ const Circle = ({ id }) => {
 
             const text = d3.select('svg')
                 .selectAll('text')
-                .data(amountOfCircles)
+                .data(arrayOfCircles)
 
             text.enter()
                 .append('text')
@@ -80,11 +80,11 @@ const Circle = ({ id }) => {
 
     const addingCircle = () => {
         simulation.current.stop()
-        setAmountOfCircles(amountOfCircles => [...amountOfCircles, myCircle])
+        setarrayOfCircles(arrayOfCircles => [...arrayOfCircles, myCircle])
     }
     const removingCircle = () => {
         simulation.current.stop()
-        setAmountOfCircles(amountOfCircles => amountOfCircles.slice(0, -1))
+        setarrayOfCircles(arrayOfCircles => arrayOfCircles.slice(0, -1))
     }
 
     return (

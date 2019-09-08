@@ -17,7 +17,7 @@ This is a simple project utilized react and d3.js - library for visualizing data
 * React JS
 * D3.js
 * ESlint
-* Firebase/Firestore
+* Firebase
 
 ## Setup
 To run this project, install it locally using npm:
