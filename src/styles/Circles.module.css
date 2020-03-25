@@ -1,26 +1,24 @@
-.circle_box{
-    box-shadow: 0 3px 6px rgb(0, 0, 0, 0.19), 0 3px 6px rgb(0, 0, 0, 0.23);
-    background-color: #fff;
-}
-
-@media (min-width:961px)  {  
-    .container{
-    display: flex;
+@media (min-width: 961px) {
+    .container {
+        display: flex;
     }
-    .btn_wrapper{
+
+    .btn_wrapper {
         max-width: 200px;
         margin: 40px;
     }
-    .circle_box{
-        margin-right: 50px; 
+
+    .circle_box {
+        margin-right: 50px;
     }
 }
 
-@media (min-width:320px)  {
-    .container{
+@media (min-width: 320px) {
+    .container {
         text-align: center;
-        }
-    .btn_wrapper{
+    }
+
+    .btn_wrapper {
         margin: 0 auto;
     }
 }

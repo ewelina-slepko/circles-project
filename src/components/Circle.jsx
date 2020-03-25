@@ -3,11 +3,11 @@ import Button from './Button.jsx'
 import styles from '../styles/Circles.module.css'
 import * as d3 from 'd3'
 
-const Circle = ({ id }) => {
+const Circle = ({ id, className }) => {
 
-    const containerWidth = window.innerWidth - (window.innerWidth / 10)
-    const containerHeight = window.innerHeight - (window.innerHeight / 5)
-    const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: containerWidth / 2, y: containerHeight / 2 }
+    const containerWidth = window.innerWidth - (window.innerWidth / 10);
+    const containerHeight = window.innerHeight - (window.innerHeight / 20);
+    const myCircle = { radius: getRandomSize(), randomColor: getRandomColor(), x: containerWidth / 2, y: containerHeight / 2 };
     const [arrayOfCircles, setarrayOfCircles] = useState([]);
     const simulation = useRef();
 
@@ -16,7 +16,7 @@ const Circle = ({ id }) => {
     }
     function getRandomColor() {
         const stringToRandomColor = '0123456789ABCDEF';
-        var color = '#';
+        let color = '#';
         for (let i = 0; i < 6; i++) {
             color += stringToRandomColor[Math.floor(Math.random() * 16)];
         }
@@ -35,7 +35,7 @@ const Circle = ({ id }) => {
         function ticked() {
             const circle = d3.select('svg')
                 .selectAll('circle')
-                .data(arrayOfCircles)
+                .data(arrayOfCircles);
 
             circle.enter()
                 .append('circle')
@@ -49,17 +49,16 @@ const Circle = ({ id }) => {
                 })
                 .attr('cy', function (d) {
                     return d.y
-                })
-            circle.exit().remove()
+                });
+            circle.exit().remove();
 
             const text = d3.select('svg')
                 .selectAll('text')
-                .data(arrayOfCircles)
+                .data(arrayOfCircles);
 
             text.enter()
                 .append('text')
                 .attr("text-anchor", "middle")
-
                 .attr('fill', d => d.randomColor)
                 .merge(text)
                 .attr('x', function (d) {
@@ -73,19 +72,19 @@ const Circle = ({ id }) => {
                 .attr("font-size", d => d.radius / 7)
                 .attr('letter-spacing', '2px')
                 .attr("font-weight", "200")
-                .text("LOREM IPSUM")
+                .text("LOREM IPSUM");
             text.exit().remove()
         }
     });
 
     const addingCircle = () => {
-        simulation.current.stop()
+        simulation.current.stop();
         setarrayOfCircles(arrayOfCircles => [...arrayOfCircles, myCircle])
-    }
+    };
     const removingCircle = () => {
-        simulation.current.stop()
+        simulation.current.stop();
         setarrayOfCircles(arrayOfCircles => arrayOfCircles.slice(0, -1))
-    }
+    };
 
     return (
         <section className={styles.container}>
@@ -100,5 +99,5 @@ const Circle = ({ id }) => {
             </svg>
         </section>
     )
-}
+};
 export default Circle;

@@ -1,14 +1,15 @@
-.header{
+.header {
     text-transform: uppercase;
     text-align: center;
     font-family: 'Amatic SC', cursive;
-    font-size: 3rem;
+    color: #d9d9d9;
+    font-size: 2rem;
     font-weight: 700;
     margin: 1rem;
 }
 
-.description{
-    font-size: 1.8rem;
+.description {
+    font-size: 1.4rem;
 }
 
 

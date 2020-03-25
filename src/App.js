@@ -6,7 +6,7 @@ function App() {
   const [amountOfCircles, setAmountOfCircles] = useState([]);
   return (
     <div className="App">
-      <h1 className={styles.header}>Awesome box <span className={styles.description}>add some circles and see what happens!</span></h1>
+      <div className={styles.header}>Awesome box <span className={styles.description}>add some circles and see what happens!</span></div>
       <Circle id="Canvas" amountOfCircles={amountOfCircles} setAmountOfCircles={setAmountOfCircles} />
     </div>
   );
